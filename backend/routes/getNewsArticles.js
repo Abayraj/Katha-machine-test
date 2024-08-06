@@ -1,7 +1,7 @@
-import express from 'express'
-import { getNewsArticles } from '../controllers/getNews.js'
-const router = express.Router();
+// import express from 'express'
+// import { getNewsArticles } from '../controllers/getNews.js'
+// const router = express.Router();
 
-router.get('/news',getNewsArticles);
+// router.get('/news',getNewsArticles);
 
-export default router;
+// export default router;

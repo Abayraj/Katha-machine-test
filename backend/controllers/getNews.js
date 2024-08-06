@@ -1,24 +1,49 @@
 import axios from 'axios';
-import asyncHandler from 'express-async-handler';
+import news from '../models/news.js';
 
 
 
 
-export const getNewsArticles = asyncHandler(async(req,res,next)=>{
+export const getNewsArticles = async ()=>{
     try {
-        const url = `${process.env.NEWS_API_URL}?q=apple&from=2024-08-04&to=2024-08-04&sortBy=popularity&apiKey=${process.env.API_KEY}`;
+        const url = `${process.env.NEWS_API_URL}?domains=wsj.com&apiKey=${process.env.API_KEY}`;
 
         const response = await axios.get(url);
 
-        res.status(200).json({
-            success: true,
-            articles: response.data.articles, // Assuming the API returns an array of articles
-        });
-        console.log(response.data.articles,"dataa")
+        const articles = response.data.articles;
+
+        for (const article of articles) {
+            const articleData = {
+                source: {
+                    id: article.source.id,
+                    name: article.source.name
+                },
+                author: article.author,
+                title: article.title,
+                description: article.description,
+                url: article.url,
+                urlToImage: article.urlToImage,
+                publishedAt: new Date(article.publishedAt),
+                content: article.content
+            };
+
+            // Upsert operation: Update if exists, insert if not
+            await news.updateOne(
+                { url: article.url }, // Filter by URL
+                { $set: articleData }, // Update or insert
+                { upsert: true } // Create if not exists
+            );
+        }
+        
+       
+
+
+        console.log(articles,"arr")
+       
 
 
     } catch (error) {
-        next(error);
+     console.log(error)
     }
     
-})
+};
