@@ -1,5 +1,6 @@
 import axios from 'axios';
 import news from '../models/news.js';
+import asyncHandler from 'express-async-handler';
 
 
 
@@ -47,3 +48,12 @@ export const getNewsArticles = async ()=>{
     }
     
 };
+export const getNewsArticlesDb = asyncHandler(async(req,res,next)=>{
+    const NewsDb = await news.find();
+    res.status(200).json({
+        success:true,
+        NewsDb
+    
+    })
+
+})

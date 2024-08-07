@@ -5,7 +5,7 @@ const Nav = () => {
     return (
         <>
         <header>
-        <nav className='flex justify-around items-center w-screen h-16  bg-white'>
+        <nav className='flex justify-around items-center h-16  bg-white'>
                 <div>
                 <h1 className='font-serif text-4xl '>NexGen Tech News</h1>
                 </div>
