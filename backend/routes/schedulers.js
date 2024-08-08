@@ -7,5 +7,6 @@ cron.schedule('0 0 * * *', () => {
     getNewsArticles();
 });
 
+
 console.log("hello cron")
 

@@ -7,7 +7,7 @@ import asyncHandler from 'express-async-handler';
 
 export const getNewsArticles = async ()=>{
     try {
-        const url = `${process.env.NEWS_API_URL}?domains=wsj.com&apiKey=${process.env.API_KEY}`;
+        const url = `${process.env.NEWS_API_URL}?sources=techcrunch&apiKey=${process.env.API_KEY}`;
 
         const response = await axios.get(url);
 

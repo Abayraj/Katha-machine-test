@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 const Nav = () => {
     return (
         <>
-        <header>
-        <nav className='flex justify-around items-center h-16  bg-white'>
+        <header className='sticky top-0'>
+        <nav className='flex justify-around items-center h-16  bg-white border-b-2'>
                 <div>
                 <h1 className='font-serif text-4xl '>NexGen Tech News</h1>
                 </div>

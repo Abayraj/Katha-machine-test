@@ -57,24 +57,27 @@ const Home = () => {
                         <article className='flex flex-col items-center gap-5 mt-12' key={index}>
                             <div className='w-4/6 text-left flex flex-col gap-4'>
                                 <h1 className='font-serif font-semibold text-2xl'>{article.title}</h1>
-                                <p className='font-sans font-normal text-2xl text-gray-600'>{article.content}
-                                    <button     onClick={() => window.location.href = article.url} className='text-blue-400 text-lg'>read more</button>
-                                </p>
+                                <p>{article.description}</p>
                                 <div>
-                                <p>By: <cite className='text-blue-500 font-serif'>{article.author}</cite></p>
-                                <p>publishedAt <cite className='text-blue-500 font-serif'>{article.publishedAt}</cite></p>
+                                    <p>By: <cite className='text-blue-500 font-serif'>{article.author}</cite></p>
+                                    <p>published At: <cite className='text-blue-500 font-serif'>{article.publishedAt}</cite></p>
                                 </div>
-                              
+
 
                             </div>
                             <img className='w-4/6' src={article.urlToImage} alt="article-img" />
-                            <section>
-                                <p>{article.description}</p>
+                            <section className='w-4/6'>
+                                <p className=' font-normal text-2xl text-gray-600'>{article.content}
+                                    <button onClick={() => window.location.href = article.url} className='text-blue-400 text-lg'>read more</button>
+                                </p>
                             </section>
                         </article>
                     ))
                 ) : (
-                    <p>No news articles available.</p>
+                    <div className='flex items-center justify-center h-screen'>
+                        <p className='text-2xl'>No news articles available &#128577; .</p>
+                    </div>
+
                 )}
             </section>
         </>
