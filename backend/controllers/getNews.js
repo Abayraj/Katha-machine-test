@@ -1,6 +1,7 @@
 import axios from 'axios';
 import news from '../models/news.js';
 import asyncHandler from 'express-async-handler';
+import { json } from 'express';
 
 
 
@@ -35,14 +36,8 @@ export const getNewsArticles = async ()=>{
                 { upsert: true } // Create if not exists
             );
         }
-        
-       
-
 
         console.log(articles,"arr")
-       
-
-
     } catch (error) {
      console.log(error)
     }
@@ -54,6 +49,36 @@ export const getNewsArticlesDb = asyncHandler(async(req,res,next)=>{
         success:true,
         NewsDb
     
-    })
+    });
+
+});
+
+export const getNewsArticlesById = asyncHandler(async(req,res,next)=>{
+    const NewsDb = await news.findById(req.params.id);
+    res.status(200).json({
+        status:true,
+        NewsDb
+    });
+});
+
+export const NewsUpdateById = asyncHandler(async(req,res,next)=>{
+    const { id } = req.params;
+    const formData = req.body;
+
+    const updatedArticle = await news.findByIdAndUpdate(id,formData, {
+        new: true,
+        runValidators: true
+    });
+    console.log(updatedArticle)
+
+    if (!updatedArticle) {
+        res.status(404);
+        throw new Error('Article not found');
+    }
+
+    res.status(200).json({
+        status: true,
+        updatedArticle
+    });
 
 })

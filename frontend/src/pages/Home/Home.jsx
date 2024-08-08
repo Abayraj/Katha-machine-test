@@ -67,7 +67,7 @@ const Home = () => {
                             </div>
                             <img className='w-4/6' src={article.urlToImage} alt="article-img" />
                             <section className='w-4/6'>
-                                <p className=' font-normal text-2xl text-gray-600'>{article.content}
+                                <p className=' font-medium text-sm text-gray-600 sm:text-2xl'>{article.content}
                                     <button onClick={() => window.location.href = article.url} className='text-blue-400 text-lg'>read more</button>
                                 </p>
                             </section>

@@ -5,15 +5,15 @@ import getNewsArticlesDb from "./routes/getNewsArticlesDb.js";
 import cors from "cors"
 const app = express();
 
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST','PUT','PATCH','DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, 
+}));
+
 
 run();
-
-app.use(cors({
-    origin: 'http://localhost:5173',
-    methods: ['GET', 'POST','PUT','PATCH','DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true, 
-  }));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
