@@ -6,7 +6,9 @@ export const axiosInstanceData = axios.create({
     baseURL,
     headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+    
+
     }
 });
 
@@ -31,7 +33,7 @@ axiosInstanceData.interceptors.response.use(
   (error) => {
       if (error.response && error.response.status === 401) {
           console.log('Token expired or unauthorized. Redirecting to login...');
-          window.location.href = '/login'; // Redirect to login page
+        //   window.location.href = '/login'; // Redirect to login page
       }
       return Promise.reject(error);
   }
