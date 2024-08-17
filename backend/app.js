@@ -4,17 +4,18 @@ import "./routes/schedulers.js"
 import getNewsArticlesDb from "./routes/getNewsArticlesDb.js";
 import cors from "cors"
 import authRoutes from './routes/authRoutes.js';
-import cookieParser from 'cookie-parser';
+
 
 
 const app = express();
-app.use(cookieParser());
+const cors = require('cors');
+
 app.use(cors({
-  origin: 'http://localhost:5173',
-  methods: ['GET', 'POST','PUT','PATCH','DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true, 
+  origin: 'https://katha-machine-test.netlify.app', // Correctly set without trailing slash
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 
 
 run();
