@@ -8,7 +8,6 @@ import authRoutes from './routes/authRoutes.js';
 
 
 const app = express();
-const cors = require('cors');
 
 app.use(cors({
   origin: 'https://katha-machine-test.netlify.app', // Correctly set without trailing slash
