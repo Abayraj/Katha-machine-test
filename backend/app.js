@@ -10,7 +10,7 @@ import authRoutes from './routes/authRoutes.js';
 const app = express();
 
 app.use(cors({
-  origin: 'https://katha-machine-test.netlify.app', // Correctly set without trailing slash
+  origin: 'https://katha-machine-test.netlify.app/api', 
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
