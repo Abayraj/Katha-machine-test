@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
         const fetchUserData = async () => {
            
 
-            if (token) {
+        
                 try {
                     const response = await axiosInstanceData.get('/user/profile', {
                     });
@@ -25,10 +25,8 @@ export const AuthProvider = ({ children }) => {
                 } catch (error) {
                   
                     setUser(null);
-                }
-            } else {
-                setUser(null); 
-            }
+          
+            } 
             setLoading(false);
         };
 
