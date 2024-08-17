@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import  {useAuth } from '../context/AuthContext';
 import { RiseLoader } from 'react-spinners';
 
-const ProtectedRoute = ({ element: Component, roles}) => {
+const ProtectedRoute = ({ element: Component}) => {
     const { user, loading } = useAuth();
    
 
@@ -27,7 +27,7 @@ const ProtectedRoute = ({ element: Component, roles}) => {
         return <Navigate to="*" />;
     }
 
-    return <Component {...rest} />;
+    return <Component/>;
 };
 
 export default ProtectedRoute;
