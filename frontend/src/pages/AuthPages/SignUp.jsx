@@ -12,12 +12,6 @@ const SignUp = () => {
     const navigate = useNavigate();
     const [checkEmail, setCheckEmail] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    // const handleSubmit = (values, { setSubmitting }) => {
-    //     console.log('Form Data Submitted:', values);
-    //     // Handle form submission here (e.g., API call)
-    //     setSubmitting(false);
-    
-    // };
 
     const togglePasswordVisibility = () => {
         setShowPassword(prevState => !prevState)
@@ -33,31 +27,6 @@ const SignUp = () => {
                         <Link to="/" className="text-2xl font-bold text-blue-600 m-4">NexGen News </Link>
 
                         <p className="text-center text-2xl lg:text-3xl font-bold md:text-left md:leading-tight">Create your free account Sign up</p>
-                        {/* {user && user.length !== 0 ? (
-                            <>
-                                <p className="mt-6 text-center font-medium md:text-left">
-                                    SimplyShop?
-                                    <Link
-                                        to={"/"}
-                                        className="text-blue-600 ml-2"
-                                        // onClick={handlelogOut}
-                                    >
-                                    Logout
-                                    </Link>
-                                </p>
-                            </>
-                        ) : (
-                            <p className="mt-6 text-center font-medium md:text-left">
-                                Already using SimplyShop?
-                                <Link
-                                    to={"/login"}
-                                    className="text-blue-600 ml-2"
-                                >
-                                   Login
-                                </Link>
-                            </p>
-                        )} */}
-
 
 
                         {/* Formik Form */}

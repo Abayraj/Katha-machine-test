@@ -16,7 +16,7 @@ const newsSchema = new mongoose.Schema(
         content: { type: String }
       },
       {
-        timestamps: true  // Automatically manage `createdAt` and `updatedAt` fields
+        timestamps: true  
       }
     );
 

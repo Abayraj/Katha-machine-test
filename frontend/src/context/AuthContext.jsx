@@ -8,14 +8,13 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [call,setCall] = useState(false);
+    const [call, setCall] = useState(false);
 
-    console.log(user,"userrrr")
+    console.log(user, "userrrr")
 
     useEffect(() => {
         const fetchUserData = async () => {
             const token = localStorage.getItem('authToken');
-            console.log('Retrieved token:', token); // Check if token is retrieved
 
             if (token) {
                 try {
@@ -24,14 +23,14 @@ export const AuthProvider = ({ children }) => {
                             Authorization: `Bearer ${token}`,
                         },
                     });
-                    console.log('API response:', response.data); // Check API response
+            
                     setUser(response.data.user);
                 } catch (error) {
-                    console.log('Failed to fetch user data:', error);
+                  
                     setUser(null);
                 }
             } else {
-                setUser(null); // Token not found
+                setUser(null); 
             }
             setLoading(false);
         };
@@ -43,15 +42,14 @@ export const AuthProvider = ({ children }) => {
         setCall(prev => !prev);
         console.log(call);
     }
-    
+
     const logout = () => {
-        console.log("calledd")
         localStorage.removeItem('authToken');
-        setUser(null); // Update the context state to reflect that the user is logged out
+        setUser(null); 
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading,logout,trigger}}>
+        <AuthContext.Provider value={{ user, loading, logout, trigger }}>
             {children}
         </AuthContext.Provider>
     );

@@ -12,10 +12,8 @@ const SignUp = lazy(() => import('./pages/AuthPages/SignUp'));
 const Login = lazy(() => import('./pages/AuthPages/Login'));
 const ResetPassword = lazy(()=> import("./pages/AuthPages/ResetPassword"));
 const Error = lazy (()=> import("./pages/Home/Error404"));
-
-
-import ProtectedRoute from "./service/ProtectedRoute";
-import ErrorPage from "./pages/ErrorPage";
+const  ProtectedRoute = lazy(()=> import("./service/ProtectedRoute.jsx"));
+const ErrorPage = lazy(()=>import("./pages/ErrorPage"));
 
 
 const router = createBrowserRouter([

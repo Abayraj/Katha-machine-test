@@ -11,12 +11,12 @@ const Login = () => {
     const [checkEmail, setCheckEmail] = useState('');
     const [forgotPassword, setForgotPassword] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const [login,setLogin] = useState(false);
-    // const 
+   
+
     const location = useLocation();
 
     const { state } = location;
-    console.log(state)
+   
 
     
 const { user, loading ,logout,trigger} = useContext(AuthContext);
