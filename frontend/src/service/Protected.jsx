@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import  {useAuth } from '../context/AuthContext';
 import { RiseLoader } from 'react-spinners';
 
-const ProtectedRoute = ({ element: Component}) => {
+const ProtectedRoute = ({ element: Component,roles}) => {
     const { user, loading } = useAuth();
    
 
