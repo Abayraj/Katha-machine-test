@@ -10,18 +10,15 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [call, setCall] = useState(false);
 
-    console.log(user, "userrrr")
+ 
 
     useEffect(() => {
         const fetchUserData = async () => {
-            const token = localStorage.getItem('authToken');
+           
 
             if (token) {
                 try {
                     const response = await axiosInstanceData.get('/user/profile', {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
                     });
             
                     setUser(response.data.user);
