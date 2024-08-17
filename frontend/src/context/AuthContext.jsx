@@ -14,9 +14,6 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const fetchUserData = async () => {
-           
-
-        
                 try {
                     const response = await axiosInstanceData.get('/user/profile', {
                     });
