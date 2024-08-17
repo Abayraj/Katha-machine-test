@@ -30,6 +30,7 @@ export async function run() {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } catch (error){
     console.log(error,"error dbb")
+    console.log("error")
     process.exit(1); 
 
   }
