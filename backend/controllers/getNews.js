@@ -39,6 +39,8 @@ export const getNewsArticles = asyncHandler(async () => {
 
 // Get all news articles from the database
 export const getNewsArticlesDb = asyncHandler(async (req, res) => {
+
+    console.log("get new from db")
     try {
         const NewsDb = await news.find();
         if (!NewsDb || NewsDb.length === 0) {

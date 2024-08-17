@@ -62,6 +62,12 @@ const Home = () => {
         window.scrollTo(0, 0);
     }, [currentPage]);
 
+    useEffect(() => {
+        if (error) {
+            navigate('/error', { state: { error: error } });
+        }
+    }, [error, navigate]);
+
     // Calculate pagination values
     const lastItemsIndex = currentPage * itemsPerPage;
     const firstItemIndex = lastItemsIndex - itemsPerPage;
@@ -87,9 +93,7 @@ const Home = () => {
         </div>
     )}
 
-    if (error) {
-        navigate('/error', { state: { error:error} });
-    }
+  
 
     return (
         <>
