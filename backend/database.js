@@ -29,7 +29,7 @@ export async function run() {
     await mongoose.connect(uri,mongooseOptions);
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } catch (error){
-    console.log("error dbb")
+    console.log(error,"error dbb")
     process.exit(1); 
 
   }
