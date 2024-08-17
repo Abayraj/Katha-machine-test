@@ -60,7 +60,8 @@ const Nav = () => {
                             <Link to="/login" className='block py-2 px-4 border-b border-gray-200 text-black hover:bg-gray-500 hover:text-white'>Log in</Link>
                         </>
                     ) : (
-                        <Link to="/logout" className='block py-2 px-4 border-b border-gray-200 text-black hover:bg-gray-500 hover:text-white'>Log out</Link>
+                     
+                        <button onClick={logout} className='block py-2 px-4 border-b border-gray-200 text-black hover:bg-gray-500 hover:text-white'>Log out</button>
                     )}
                     {isAdmin && (
                         <>
