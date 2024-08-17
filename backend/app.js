@@ -3,8 +3,12 @@ import {run} from "./database.js"
 import "./routes/schedulers.js"
 import getNewsArticlesDb from "./routes/getNewsArticlesDb.js";
 import cors from "cors"
-const app = express();
+import authRoutes from './routes/authRoutes.js';
+import cookieParser from 'cookie-parser';
 
+
+const app = express();
+app.use(cookieParser());
 app.use(cors({
   origin: 'http://localhost:5173',
   methods: ['GET', 'POST','PUT','PATCH','DELETE'],
@@ -17,7 +21,10 @@ run();
 
 // Middleware to parse JSON bodies
 app.use(express.json());
-app.use('/api',getNewsArticlesDb);
+
+app.use('/api',getNewsArticlesDb,authRoutes);
+
+
 
 // Global error handler
 app.use((err, req, res, next) => {
@@ -27,6 +34,7 @@ app.use((err, req, res, next) => {
       message: 'Something went wrong!',
       error: err.message
   });
+  console.log(err,"global error")
 });
 
 const PORT = process.env.PORT || 5000;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { axiosInstanceData } from "../../service/axiosInstance";
-import Nav from "../../Components/Nav/Nav";
+import { axiosInstanceData } from "../../service/axiosInstance.js";
+import Nav from "../../Components/Nav/Nav.jsx";
 import { Navigate, useNavigate } from "react-router-dom";
 // import Popup from 'reactjs-popup';
 // import 'reactjs-popup/dist/index.css';
@@ -34,7 +34,7 @@ const AdminPanel = () => {
 
 
     if (loading) {
-        return <p>Loading...</p>;
+        navigate('/error', { state: { error:error} });
     }
 
     if (error) {
@@ -42,18 +42,19 @@ const AdminPanel = () => {
     }
 
 
-    // const handleDelete = async (id) => {
-    //     if (window.confirm('Are you sure you want to delete this article?')) {
-    //         try {
-    //             await axiosInstanceData.delete(`/delete-news/${id}`);
-    //             setNews(news.filter(article => article._id !== id));
-    //             alert('Article deleted successfully');
-    //         } catch (error) {
-    //             console.error('Error deleting article:', error);
-    //             alert('An error occurred while deleting the article');
-    //         }
-    //     }
-    // };
+    const handleDelete = async (id) => {
+        if (window.confirm('Are you sure you want to delete this article?')) {
+            try {
+                await axiosInstanceData.delete(`/delete-news/${id}`);
+                setNews(news.filter(article => article._id !== id));
+                alert('Article deleted successfully');
+            } catch (error) {
+                console.error('Error deleting article:', error);
+                setError(error.message || 'An unexpected error occurred');
+                alert('An error occurred while deleting the article');
+            }
+        }
+    };
 
 
     const handleEdit = (id) => {

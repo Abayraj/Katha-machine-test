@@ -1,17 +1,12 @@
-import axios from 'axios';
 import news from '../models/news.js';
 import asyncHandler from 'express-async-handler';
-import { json } from 'express';
+import axios from 'axios';
 
-
-
-
-export const getNewsArticles = async ()=>{
+// Fetch and upsert news articles into the database
+export const getNewsArticles = asyncHandler(async () => {
     try {
         const url = `${process.env.NEWS_API_URL}?sources=techcrunch&apiKey=${process.env.API_KEY}`;
-
         const response = await axios.get(url);
-
         const articles = response.data.articles;
 
         for (const article of articles) {
@@ -36,49 +31,120 @@ export const getNewsArticles = async ()=>{
                 { upsert: true } // Create if not exists
             );
         }
-
-        console.log(articles,"arr")
+        console.log(articles, "arr");
     } catch (error) {
-     console.log(error)
+        res.status(500).json({ error: 'Failed to fetch news articles from api' });
     }
-    
-};
-export const getNewsArticlesDb = asyncHandler(async(req,res,next)=>{
-    const NewsDb = await news.find();
-    res.status(200).json({
-        success:true,
-        NewsDb
-    
-    });
-
 });
 
-export const getNewsArticlesById = asyncHandler(async(req,res,next)=>{
-    const NewsDb = await news.findById(req.params.id);
-    res.status(200).json({
-        status:true,
-        NewsDb
-    });
+// Get all news articles from the database
+export const getNewsArticlesDb = asyncHandler(async (req, res) => {
+    try {
+        const NewsDb = await news.find();
+        if (!NewsDb || NewsDb.length === 0) {
+            return res.status(404).json({ error: "No news articles found" });
+        }
+        res.status(200).json({
+            success: true,
+            NewsDb
+        });
+    } catch (error) {
+        console.error('Error fetching news articles from database:', error.message);
+        res.status(500).json({ error: 'Failed to fetch news articles from database' });
+    }
 });
 
-export const NewsUpdateById = asyncHandler(async(req,res,next)=>{
+// Get a specific news article by ID
+export const getNewsArticlesById = asyncHandler(async (req, res) => {
+    try {
+        const NewsDb = await news.findById(req.params.id);
+        if (!NewsDb) {
+            return res.status(404).json({ error: "News article not found" });
+        }
+        res.status(200).json({
+            success: true,
+            NewsDb
+        });
+    } catch (error) {
+        console.error('Error fetching news article by ID:', error.message);
+        res.status(500).json({ error: 'Failed to fetch news article' });
+    }
+});
+
+// Update a specific news article by ID
+export const NewsUpdateById = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const formData = req.body;
 
-    const updatedArticle = await news.findByIdAndUpdate(id,formData, {
-        new: true,
-        runValidators: true
-    });
-    console.log(updatedArticle)
-
-    if (!updatedArticle) {
-        res.status(404);
-        throw new Error('Article not found');
+    try {
+        const updatedArticle = await news.findByIdAndUpdate(id, formData, {
+            new: true,
+            runValidators: true
+        });
+        if (!updatedArticle) {
+            return res.status(404).json({ error: 'Article not found' });
+        }
+        res.status(200).json({
+            success: true,
+            updatedArticle
+        });
+    } catch (error) {
+        console.error('Error updating news article by ID:', error.message);
+        res.status(500).json({ error: 'Failed to update news article' });
     }
+});
 
-    res.status(200).json({
-        status: true,
-        updatedArticle
-    });
+// Delete a specific news article by ID
+export const DeleteNewsById = asyncHandler(async (req, res) => {
+    const { id } = req.params;
 
-})
+    try {
+        const deletedNews = await news.findByIdAndDelete(id);
+        if (!deletedNews) {
+            return res.status(404).json({ error: 'News article not found' });
+        }
+        res.status(200).json({
+            message: 'News article deleted successfully',
+            deletedNews
+        });
+    } catch (error) {
+        console.error('Error deleting news article by ID:', error.message);
+        res.status(500).json({ error: 'Failed to delete news article' });
+    }
+});
+
+// Add a new news article
+export const AddNews = asyncHandler(async (req, res) => {
+    const {
+        title,
+        author,
+        publishedAt,
+        description,
+        url,
+        urlToImage
+    } = req.body;
+
+
+    try {
+        const newNews = new news({
+            title,
+            author,
+            publishedAt,
+            description,
+            url,
+            urlToImage
+        });
+
+        const savedLatestNews = await newNews.save();
+        res.status(201).json(savedLatestNews);
+    } catch (error) {
+        console.log(error);
+
+        if (error.code === 11000) {
+            // Duplicate key error
+            return res.status(400).json({ error: 'News article with the same title or URL already exists' });
+        }
+    
+        res.status(500).json({ error: 'Failed to add new news article' });
+    }
+});

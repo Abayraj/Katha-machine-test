@@ -8,5 +8,6 @@ cron.schedule('0 0 * * *', () => {
 });
 
 
-console.log("hello cron")
+// console.log("hello cron")
+
 
