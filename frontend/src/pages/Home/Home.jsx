@@ -34,8 +34,6 @@ const Home = () => {
             setLoading(true);
             try {
                 const response = await axiosInstanceData.get('/get-news');
-         
-
                 // Sanitize each article's content
                 const sanitizedNews = response.data.NewsDb.map(article => ({
                     ...article,
