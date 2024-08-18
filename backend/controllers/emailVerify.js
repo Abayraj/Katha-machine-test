@@ -18,13 +18,13 @@ export const verifyEmail = asyncHandler(async (req, res) => {
     // Check if the user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.redirect(`${process.env.BASE_URL_FRONT_END}/#/login`);
+      return res.redirect(`${process.env.BASE_URL_FRONT_END}/login`);
     }
 
     // Save the user data to the database
     const user = new User({ username, password, email, isVerified: true });
     await user.save();
-    return res.redirect(`${process.env.BASE_URL_FRONT_END}/#/login`);
+    res.redirect(`${process.env.BASE_URL_FRONT_END}/login`);
   } catch (error) {
     res.status(400).json({ error: "Invalid or expired token sign up again" });
   }
