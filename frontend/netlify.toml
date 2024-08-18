@@ -1,9 +1,10 @@
 [build]
-  publish = "build"       # Directory containing your built static files
-  command = "npm run build" # Command to build your project
+  publish = "frontend/dist"  # Update to your actual build output directory
+  command = "npm run build"  # Ensure this command is correct for your project
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
   force = true
+
