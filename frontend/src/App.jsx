@@ -1,14 +1,10 @@
-
-import { RouterProvider } from 'react-router-dom'
-import './App.css'
-import router from './Routes'
-import { Suspense } from 'react'
+import './App.css';
+import Routers from './Routes';
+import { Suspense } from 'react';
 import { RiseLoader } from 'react-spinners';
 
 function App() {
-
   return (
- 
     <Suspense fallback={
       <div style={{
           display: 'flex',
@@ -19,11 +15,11 @@ function App() {
       }}>
           <RiseLoader color="#3498db" size={20} margin={3} />
       </div>
-  }>
-       <RouterProvider router={router} />
-  </Suspense>
-
+    }>
+      <Routers/>
+    </Suspense>
   );
 }
 
-export default App
+export default App;
+
