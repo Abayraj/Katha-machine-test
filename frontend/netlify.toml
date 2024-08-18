@@ -1,5 +1,5 @@
 [build]
-  publish = "frontend/dist"  # Update to your actual build output directory
+  publish = "dist"  # Update to your actual build output directory
   command = "npm run build"  # Ensure this command is correct for your project
 
 [[redirects]]
