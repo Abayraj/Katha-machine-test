@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 const Nav = () => {
-    const { user, loading, logout, trigger } = useContext(AuthContext);
+    const { user,logout } = useContext(AuthContext);
 
     console.log(user)
 
