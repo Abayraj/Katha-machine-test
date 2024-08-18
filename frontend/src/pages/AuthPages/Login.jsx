@@ -3,6 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { handleSubmitLogin, handleForgotPassword } from '../../api/authApi'; // Assuming these functions are defined in your authApi
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 
 
@@ -11,6 +12,8 @@ const Login = () => {
     const [checkEmail, setCheckEmail] = useState('');
     const [forgotPassword, setForgotPassword] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+
+    const {callUserDetails } = useAuth();
    
 
     const location = useLocation();
@@ -51,6 +54,8 @@ const Login = () => {
     const handleLoginSubmit = async (values, { setSubmitting, setErrors }) => {
         try {
             const response = await handleSubmitLogin(values);
+
+            callUserDetails();
      
             if (response.error) {
                 setCheckEmail(response.error);

@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState(localStorage.getItem('authToken'));
-
+    const [call, setCall] = useState(false);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -27,10 +27,13 @@ export const AuthProvider = ({ children }) => {
         };
 
         fetchUserData();
-    }, [token]);
+    }, [token, call]);
 
   
 
+    const callUserDetails = () => {
+        setCall(prev => !prev);
+    };
 
     const logout = () => {
         localStorage.removeItem('authToken');
@@ -39,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user,logout }}>
+        <AuthContext.Provider value={{ user,loading, logout,callUserDetails }}>
             {children}
         </AuthContext.Provider>
     );
