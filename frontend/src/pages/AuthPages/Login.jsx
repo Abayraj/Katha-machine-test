@@ -19,6 +19,8 @@ const Login = () => {
     const location = useLocation();
 
     const { state } = location;
+    console.log(callUserDetails,"call user details")
+
    
 
     
@@ -34,8 +36,6 @@ const Login = () => {
         try {
             console.log(values.email)
             const response = await handleForgotPassword(values);
-         
-
             if (response.error) {
                 setCheckEmail(response.error);
             } else {
@@ -54,13 +54,11 @@ const Login = () => {
     const handleLoginSubmit = async (values, { setSubmitting, setErrors }) => {
         try {
             const response = await handleSubmitLogin(values);
-
-            callUserDetails();
      
             if (response.error) {
                 setCheckEmail(response.error);
             } else {
-     
+                callUserDetails();
                 navigate('/');
             }
         } catch (error) {
