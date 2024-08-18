@@ -1,5 +1,3 @@
-// src/context/AuthContext.jsx
-
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { axiosInstanceData } from '../service/axiosInstance';
 
@@ -8,36 +6,36 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [call, setCall] = useState(false);
+    const [token, setToken] = useState(localStorage.getItem('authToken'));
 
- 
 
     useEffect(() => {
         const fetchUserData = async () => {
+            if (token) {
                 try {
-                    const response = await axiosInstanceData.get('/user/profile', {
-                    });
-            
+                    const response = await axiosInstanceData.get('/user/profile');
                     setUser(response.data.user);
                 } catch (error) {
-                  
                     setUser(null);
-          
-            } 
-            setLoading(false);
+                } finally {
+                    setLoading(false);
+                }
+            } else {
+                setUser(null);
+                setLoading(false);
+            }
         };
 
         fetchUserData();
-    }, [call]);
+    }, [token]);
 
-    const trigger = () => {
-        setCall(prev => !prev);
-        console.log(call);
-    }
+  
+
 
     const logout = () => {
         localStorage.removeItem('authToken');
-        setUser(null); 
+        setToken(null);
+        setUser(null);
     };
 
     return (
@@ -48,5 +46,6 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+
 
 

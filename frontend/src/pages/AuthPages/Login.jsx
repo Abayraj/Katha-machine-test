@@ -3,7 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { handleSubmitLogin, handleForgotPassword } from '../../api/authApi'; // Assuming these functions are defined in your authApi
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
+
 
 
 const Login = () => {
@@ -19,7 +19,7 @@ const Login = () => {
    
 
     
-const { user, loading ,logout,trigger} = useContext(AuthContext);
+
     // Toggle password visibility
     const togglePasswordVisibility = () => {
         setShowPassword(prevState => !prevState);
@@ -51,7 +51,7 @@ const { user, loading ,logout,trigger} = useContext(AuthContext);
     const handleLoginSubmit = async (values, { setSubmitting, setErrors }) => {
         try {
             const response = await handleSubmitLogin(values);
-            trigger();
+     
             if (response.error) {
                 setCheckEmail(response.error);
             } else {
