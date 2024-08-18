@@ -4,6 +4,7 @@ import "./routes/schedulers.js"
 import getNewsArticlesDb from "./routes/getNewsArticlesDb.js";
 import cors from "cors"
 import authRoutes from './routes/authRoutes.js';
+import path from "path"
 
 
 
@@ -23,6 +24,16 @@ run();
 app.use(express.json());
 
 app.use('/api',getNewsArticlesDb,authRoutes);
+
+const __dirname = path.resolve();
+// for deployment
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "frontend", "dist", "index.html")
+  );
+});
 
 
 
@@ -53,4 +64,6 @@ process.on('unhandledRejection', (error) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-})
+});
+
+
